@@ -1,3 +1,8 @@
+--
+-- Original C64/Mega65 and 4BBP code created by MonsterGoBoom
+-- 
+-- X16 Code Added by AMk
+--
 
 local byte = string.char
 local binfile = nil
@@ -293,6 +298,27 @@ function Tilemizer(type,exportChars,exportMap,exportPal,OffsetTile,Xflips,Yflips
 		System = MEGA65
 		EncodeMap(app.activeFrame,8,8,0xff)
 	end
+	--
+	-- X16 added by AMK
+	--
+	if type=="X16 8x8 4bpp" then 
+		if cmdline==true then print("X16 8x8 mode") end
+		System = BPP4
+		EncodeMap(app.activeFrame,8,8,0xf)
+	end
+	if type=="X16 16x16 4bpp" then 
+		if cmdline==true then print("X16 16x16  mode") end
+		System = BPP4
+		EncodeMap(app.activeFrame,16,16,0xf)
+	end
+	if type=="X16 32x32 4bpp" then 
+		if cmdline==true then print("X16 32x32 mode") end
+		System = BPP4
+		EncodeMap(app.activeFrame,32,32,0xf)
+	end
+
+	--
+	--
 	--	save colors
 	if System.ExportPal~=nil then 
 		if exportPal~=nil then 
@@ -375,7 +401,7 @@ else
 	dlg:combobox{ id="TileFormat",
 						label="TileFormat",
 						option="C64",
-						options={ "C64","MEGA65","BPP4"} }
+						options={ "C64","MEGA65","BPP4","X16 8x8 4bpp","X16 16x16 4bpp","X16 32x32 4bpp"} }
 	dlg:number{ id="OffsetTile",
 						label="Offset#",
 						text="0",
